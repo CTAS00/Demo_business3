@@ -6,6 +6,8 @@ import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.SSLSession;
 
 import ctas.ctsdk.okhttp.https.Utils;
+import ctas.ctsdk.okhttp.listener.DisposeDataHandler;
+import ctas.ctsdk.okhttp.response.CommonJsonCallBack;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.OkHttpClient;
@@ -34,7 +36,7 @@ public class CommonOkHttpClient {
                 return true;
             }
         });
-        okHttpBuilder.sslSocketFactory(Utils.getSslSocketFactory());
+        okHttpBuilder.sslSocketFactory(Utils.initSSLSocketFactory(), Utils.initTrustManager());
 
         //create clien  object
 
@@ -45,9 +47,9 @@ public class CommonOkHttpClient {
 
 
 
-    public static Call sendRequest(Request request, Callback commonCallback){
+    public static Call sendRequest(Request request, DisposeDataHandler commonCallback){
          Call call =mOkHttpClient.newCall(request);
-         call.enqueue(commonCallback);
+         call.enqueue(new CommonJsonCallBack(commonCallback));
          return call;
 
     }

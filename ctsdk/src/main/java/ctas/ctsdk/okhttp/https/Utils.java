@@ -25,43 +25,6 @@ import javax.net.ssl.X509TrustManager;
  */
 public class Utils {
 
-    public static SSLSocketFactory getSslSocketFactory() {
-
-
-        X509TrustManager x509TrustManager=new X509TrustManager() {
-            @Override
-            public void checkClientTrusted(X509Certificate[] chain, String authType) throws CertificateException {
-
-            }
-
-            @Override
-            public void checkServerTrusted(X509Certificate[] chain, String authType) throws CertificateException {
-
-            }
-
-            @Override
-            public X509Certificate[] getAcceptedIssuers() {
-                return new X509Certificate[0];
-            }
-        };
-        return null;
-//        try {
-//            TrustManager[] trustManagers = prepareTrustManager(certificates);
-//            KeyManager[] keyManagers = prepareKeyManager(bksFile, password);
-//            SSLContext sslContext = SSLContext.getInstance("SSL");
-//
-//            sslContext.init(keyManagers, new TrustManager[]
-//                    {new MyTrustManager(chooseTrustManager(trustManagers))}, new SecureRandom());
-//            return sslContext.getSocketFactory();
-//        } catch (NoSuchAlgorithmException e) {
-//            throw new AssertionError(e);
-//        } catch (KeyManagementException e) {
-//            throw new AssertionError(e);
-//        } catch (KeyStoreException e) {
-//            throw new AssertionError(e);
-//        }
-    }
-
     public static SSLSocketFactory getSslSocketFactory(InputStream[] certificates, InputStream bksFile, String password) {
         try {
             TrustManager[] trustManagers = prepareTrustManager(certificates);

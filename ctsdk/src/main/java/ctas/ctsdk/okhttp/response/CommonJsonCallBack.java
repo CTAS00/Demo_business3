@@ -10,6 +10,7 @@ import java.io.IOException;
 import ctas.ctsdk.okhttp.exception.OkHttpException;
 import ctas.ctsdk.okhttp.listener.DisposeDataHandler;
 import ctas.ctsdk.okhttp.listener.DisposeDataListener;
+import ctas.ctsdk.okhttp.utils.jsonToObject;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
@@ -97,15 +98,13 @@ public class CommonJsonCallBack implements Callback {
                     }
                     else {
                         //1. jie xi cheng object
-//                        Object object;
-//                        if(object ==null ){
-//                            mListener.onFailure(new OkHttpException(JSON_ERROR,EMPTY_MSG);
-//                        }
-//                        else {
-//                            mListener.onSuccess(object);
-//                        }
+                       Object object=   jsonToObject.toObject(result.toString(),mClass);
+                        if(object!=null){
+                            mListener.onSuccess(object);
+                        }else {
+                            mListener.onFailure(new OkHttpException(JSON_ERROR,EMPTY_MSG));
 
-
+                        }
                     }
 
 
